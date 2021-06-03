@@ -1,0 +1,22 @@
+wsのバックエンドだけ作っといたほうがいいかも
+機能
+
+- ブロードキャストする
+- ping pong
+- 接続しているip一覧を返す
+
+
+- 特定のipへ送る
+localhost
+<-{message:'hoge', to:'ip:port', option:'なんかフォーマットとか自由に'}
+to IP ->{message:'hoge' , from :'ip', option:'' }
+
+- ブロードキャスト(自分には返さない)
+localhost
+<-{body:'hoge', to:'*', option:'' }
+to Broad ->{body:'hoge' , from :'ip:port', isBroad:true, option:'' }
+
+- 接続ip一覧を返す -> これもらわなくてもping/pong時に吐くか
+on('connection')とdestory時
+
+to broad -> {list:[ip+port?, ip]}
