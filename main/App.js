@@ -23,6 +23,5 @@ export class App {
     socket.addEventListener('message', function (event) {
       console.log('Message from server ', event.data);
     });
-    console.log(`${inputElement.value}`);
   }
 }
