@@ -1,16 +1,26 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
   <head>
     <meta charset="UTF-8" />
-    <title>Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MVC_Chat</title>
   </head>
   <body>
-    <form id="form">
-      <input id="form-input" />
-    </form>
-    <div>
-      <script src="./index.js" type="module"></script>
+      <form id="js-form">
+        <input
+          id="message-input"
+          name="input"
+          class="new-todo"
+          type="text"
+          placeholder="Type message here"
+          autocomplete="off"
+          autofocus
+        />
+      </form>
     </div>
-    <h1></h1>
+    <script>
+      // document.body.style.height = `${window.innerHeight}px`;
+    </script>
+    <script src="./index.js" type="module"></script>
   </body>
 </html>

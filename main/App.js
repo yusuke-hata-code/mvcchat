@@ -1,27 +1,33 @@
-/*class EventTarget extends EventTarget {
-  constructor() {
-    super();
-    this.listener = new Map();
-  }
-}*/
+import { MessageModel } from '/model/MessageModel.js';
 
-export class App {
+export const App = class {
+  constructor({ jsForm, jsMessages, wsURL }) {
+    this.jsForm = jsForm;
+    this.jsMessages = jsMessages;
+    this.ws = new WebSocket(wsURL);
+    this.messageModel = new MessageModel();
+  }
+
+  // イベントリスナーの登録
   mount() {
-    const formElement = document.querySelector('#form');
-    const inputElement = document.querySelector('#form-input');
-    const inputbody = document.getElementById('form-input');
-
-    const socket = new WebSocket('ws://10.1.234.2:8888');
-    // 接続が開いたときのイベント
-    socket.addEventListener('open', function (event) {});
-
-    formElement.addEventListener('submit', (event) => {
-      event.preventDefault();
-      socket.send(JSON.stringify({ body: `${inputbody.value}`, to: '*' }));
+    // ユーザがメッセージを入力したとき
+    this.jsForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      console.log(e.srcElement.input.value);
+      // messagaModelに値を追加する
+      this.messageModel.addMessage({
+        body: e.srcElement.input.value,
+        to: '*',
+      });
+      e.srcElement.input.value = '';
     });
-    // メッセージの待ち受け
-    socket.addEventListener('message', function (event) {
-      console.log('Message from server ', event.data);
+
+    // WebSocketでメッセージを受け取ったとき
+    this.ws.addEventListener('message', (message) => {
+      const data = JSON.parse(message.data);
+      console.log(data);
+      // messagaModelに値を追加する;
+      this.messageModel.addMessage(data);
     });
   }
-}
+};
